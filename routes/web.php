@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\DashboardController;
 
 // Redirect root ke login
 Route::get('/', function () {
@@ -20,14 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // 3. Route Halaman Utama (Sidebar Menu)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        if (auth()->user()->isAdmin()) {
-            return view('dashboard');
-        } elseif (auth()->user()->isKasir()) {
-            return redirect()->route('kasir.transaksi');
-        }
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Admin routes
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
