@@ -5,12 +5,28 @@
 
 @section('content')
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="p-4 flex justify-end space-x-2 border-b">
-            <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200">
-                <i class="fa-solid fa-filter mr-1"></i> Kategori
-            </button>
+        <div class="p-4 flex justify-between items-center border-b">
+            <div class="flex items-center space-x-2">
+                <form method="GET" action="{{ route('admin.produk.index') }}" class="flex items-center space-x-2">
+                    <select name="category" onchange="this.form.submit()"
+                        class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                        <option value="">Semua Kategori</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                                {{ $category }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+                @if (request('category'))
+                    <a href="{{ route('admin.produk.index') }}" class="text-gray-500 hover:text-gray-700 text-sm">
+                        <i class="fa-solid fa-times"></i> Hapus Filter
+                    </a>
+                @endif
+            </div>
             <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700">
-                <i class="fa-solid fa-plus mr-1"></i> <a href="{{ route('admin.produk.create') }}">Tambah Produk</a>
+                <i class="fa-solid fa-plus mr-1"></i> <a href="{{ route('admin.produk.create') }}"
+                    class="text-white no-underline">Tambah Produk</a>
             </button>
         </div>
 

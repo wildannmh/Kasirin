@@ -15,8 +15,18 @@
             </div>
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
-                <input type="text" name="category" id="category"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <select name="category" id="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="Makanan">Makanan</option>
+                    <option value="Minuman">Minuman</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Elektronik">Elektronik</option>
+                    <option value="Pakaian">Pakaian</option>
+                    <option value="Kosmetik">Kosmetik</option>
+                    <option value="Alat Tulis">Alat Tulis</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
             </div>
             <div class="mb-4">
                 <label for="price" class="block text-sm font-medium text-gray-700">Harga</label>

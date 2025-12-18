@@ -8,10 +8,21 @@ use App\Models\Produk;
 class ProdukController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $produks = Produk::all();
-        return view('admin.produk.index', compact('produks'));
+        $query = Produk::query();
+
+        // Filter berdasarkan kategori jika ada
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $produks = $query->get();
+
+        // Ambil semua kategori unik untuk filter
+        $categories = Produk::distinct()->pluck('category')->filter()->sort();
+
+        return view('admin.produk.index', compact('produks', 'categories'));
     }
 
     public function show($id)

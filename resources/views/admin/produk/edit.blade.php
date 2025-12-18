@@ -16,8 +16,26 @@
             </div>
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
-                <input type="text" name="category" id="category" value="{{ old('category', $produk->category) }}"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                <select name="category" id="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="Makanan" {{ old('category', $produk->category) == 'Makanan' ? 'selected' : '' }}>Makanan
+                    </option>
+                    <option value="Minuman" {{ old('category', $produk->category) == 'Minuman' ? 'selected' : '' }}>Minuman
+                    </option>
+                    <option value="Snack" {{ old('category', $produk->category) == 'Snack' ? 'selected' : '' }}>Snack
+                    </option>
+                    <option value="Elektronik" {{ old('category', $produk->category) == 'Elektronik' ? 'selected' : '' }}>
+                        Elektronik</option>
+                    <option value="Pakaian" {{ old('category', $produk->category) == 'Pakaian' ? 'selected' : '' }}>Pakaian
+                    </option>
+                    <option value="Kosmetik" {{ old('category', $produk->category) == 'Kosmetik' ? 'selected' : '' }}>
+                        Kosmetik</option>
+                    <option value="Alat Tulis" {{ old('category', $produk->category) == 'Alat Tulis' ? 'selected' : '' }}>
+                        Alat Tulis</option>
+                    <option value="Lainnya" {{ old('category', $produk->category) == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                    </option>
+                </select>
             </div>
             <div class="mb-4">
                 <label for="price" class="block text-sm font-medium text-gray-700">Harga</label>
