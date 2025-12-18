@@ -10,7 +10,7 @@
                 <i class="fa-solid fa-filter mr-1"></i> Kategori
             </button>
             <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700">
-                <i class="fa-solid fa-plus mr-1"></i> Tambah Produk
+                <i class="fa-solid fa-plus mr-1"></i> <a href="{{ route('admin.produk.create') }}">Tambah Produk</a>
             </button>
         </div>
 
@@ -25,28 +25,39 @@
                 </tr>
             </thead>
             <tbody class="text-sm">
-                <tr class="hover:bg-gray-50">
-                    <td class="p-4 border-b">
-                        <div class="flex items-center">
-                            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Nasi Goreng" class="w-12 h-12 rounded object-cover mr-3">
-                            <span class="font-medium text-gray-800">Nasi Goreng</span>
-                        </div>
-                    </td>
-                    <td class="p-4 border-b text-gray-600">Makanan</td>
-                    <td class="p-4 border-b text-gray-600">Rp 15.000</td>
-                    <td class="p-4 border-b text-gray-600">30</td>
-                    <td class="p-4 border-b text-center">
-                        <div class="flex flex-col space-y-1">
-                            <button class="border border-blue-500 text-blue-500 px-2 py-1 rounded text-xs hover:bg-blue-50">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="border border-red-500 text-red-500 px-2 py-1 rounded text-xs hover:bg-red-50">
-                                <i class="fa-solid fa-trash"></i> Hapus
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
+                @foreach ($produks as $produk)
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 border-b">
+                            <div class="flex items-center">
+                                <img src="{{ $produk->photo ? asset('storage/' . $produk->photo) : 'https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80' }}"
+                                    alt="{{ $produk->name }}" class="w-12 h-12 rounded object-cover mr-3">
+                                <span class="font-medium text-gray-800">{{ $produk->name }}</span>
+                            </div>
+                        </td>
+                        <td class="p-4 border-b text-gray-600">{{ $produk->category }}</td>
+                        <td class="p-4 border-b text-gray-600">Rp {{ number_format($produk->price, 0, ',', '.') }}</td>
+                        <td class="p-4 border-b text-gray-600">{{ $produk->stock }}</td>
+                        <td class="p-4 border-b text-center">
+                            <div class="flex flex-col space-y-1">
+                                <a href="{{ route('admin.produk.edit', $produk->id) }}"
+                                    class="border border-blue-500 text-blue-500 px-2 py-1 rounded text-xs hover:bg-blue-50">
+                                    <i class="fa-regular fa-pen-to-square"></i> Edit
+                                </a>
+                                <form action="{{ route('admin.produk.destroy', $produk->id) }}" method="POST"
+                                    style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="border border-red-500 text-red-500 px-2 py-1 rounded text-xs hover:bg-red-50"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
+                                        <i class="fa-solid fa-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 @endsection

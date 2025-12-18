@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +20,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        .bg-sidebar { background-color: #FBBF46; }
-        .text-sidebar-active { color: #FBBF46; }
-        .bg-dark-btn { background-color: #000000; }
+        .bg-sidebar {
+            background-color: #FBBF46;
+        }
+
+        .text-sidebar-active {
+            color: #FBBF46;
+        }
+
+        .bg-dark-btn {
+            background-color: #000000;
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 h-screen flex overflow-hidden">
 
     <aside class="w-64 bg-sidebar flex flex-col justify-between h-full fixed left-0 top-0 z-10">
@@ -36,19 +46,24 @@
             </div>
 
             <nav class="mt-6 px-4 space-y-2 text-white font-medium">
-                <a href="/dashboard" class="flex items-center px-4 py-3 {{ request()->is('dashboard') ? 'bg-black rounded-full' : '' }}">
+                <a href="/dashboard"
+                    class="flex items-center px-4 py-3 {{ request()->is('dashboard') ? 'bg-black rounded-full' : '' }}">
                     <i class="fa-solid fa-table-columns w-6"></i> Dashboard
                 </a>
-                <a href="/produk" class="flex items-center px-4 py-3 {{ request()->is('produk') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
+                <a href="{{ route('admin.produk.index') }}"
+                    class="flex items-center px-4 py-3 {{ request()->is('admin.produk.index') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
                     <i class="fa-solid fa-box-open w-6"></i> Produk
                 </a>
-                <a href="/stok" class="flex items-center px-4 py-3 {{ request()->is('stok') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
+                {{-- <a href="/stok"
+                    class="flex items-center px-4 py-3 {{ request()->is('stok') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
                     <i class="fa-solid fa-clipboard-list w-6"></i> Stok
-                </a>
-                <a href="/laporan" class="flex items-center px-4 py-3 {{ request()->is('laporan') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
+                </a> --}}
+                <a href="/laporan"
+                    class="flex items-center px-4 py-3 {{ request()->is('laporan') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
                     <i class="fa-solid fa-file-invoice w-6"></i> Laporan
                 </a>
-                <a href="/pengguna" class="flex items-center px-4 py-3 {{ request()->is('pengguna') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
+                <a href="/pengguna"
+                    class="flex items-center px-4 py-3 {{ request()->is('pengguna') ? 'bg-black rounded-full' : 'hover:bg-yellow-500 rounded-full transition' }}">
                     <i class="fa-solid fa-users w-6"></i> Pengguna
                 </a>
             </nav>
@@ -56,9 +71,12 @@
 
         <div class="p-6">
             <hr class="border-black mb-4 opacity-20">
-            <a href="/logout" class="flex items-center text-red-900 font-bold hover:text-red-700">
-                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> KELUAR
-            </a>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="flex items-center text-red-900 font-bold hover:text-red-700">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> KELUAR
+                </button>
+            </form>
         </div>
     </aside>
 
@@ -78,5 +96,7 @@
         </main>
     </div>
 
-@stack('scripts') </body>
+    @stack('scripts')
+</body>
+
 </html>
