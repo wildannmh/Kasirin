@@ -270,7 +270,7 @@
                 change: 0,
 
                 init() {
-                    fetch('{{ route('api.produks') }}')
+                    fetch('{{ route('kasir.produks') }}')
                         .then(res => res.json())
                         .then(data => {
                             this.products = data;
@@ -332,7 +332,7 @@
                         this.modalCash = true;
                     } else {
                         // Process non-cash payment
-                        fetch('{{ route('transaksi.store') }}', {
+                        fetch('{{ route('kasir.store') }}', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -367,7 +367,7 @@
                     this.change = this.cashAmount - this.subtotal;
 
                     // Send transaction to backend
-                    fetch('{{ route('transaksi.store') }}', {
+                    fetch('{{ route('kasir.store') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
