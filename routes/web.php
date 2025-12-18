@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransaksiController;
 
 // Redirect root ke login
 Route::get('/', function () {
@@ -37,8 +38,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Other views, assuming admin
+    Route::resource('pengguna', UserController::class)->middleware('role:admin');
     Route::view('/stok', 'admin.stok.index')->name('stok')->middleware('role:admin');
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan')->middleware('role:admin');
-    Route::get('/laporan/export', [LaporanController::class, 'export'])->name('laporan.export')->middleware('role:admin');
-    Route::view('/pengguna', 'admin.pengguna.index')->name('pengguna')->middleware('role:admin');
 });
